@@ -1,13 +1,15 @@
+import { ToolmanagementRouting } from './toolmanagement.routing';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 
 @NgModule({
   declarations: [DashboardComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    ToolmanagementRouting
   ]
 })
 
