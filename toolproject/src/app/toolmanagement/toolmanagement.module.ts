@@ -5,11 +5,12 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TmContentComponent } from './components/tm-content/tm-content.component';
+import { LoanComponent } from './components/loan/loan.component';
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, NavbarComponent, SidebarComponent, TmContentComponent],
+  declarations: [DashboardComponent, NavbarComponent, SidebarComponent, TmContentComponent, LoanComponent],
   imports: [
     CommonModule,
     ToolmanagementRouting

@@ -2,11 +2,14 @@ import { tmURL } from './toolmanagement.url';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoanComponent } from './components/loan/loan.component';
 
 
 
 const routes: Routes = [
-    {path: tmURL.toolmanagement, component: DashboardComponent}
+    {path: '', redirectTo: tmURL.dashboard, pathMatch: 'full'},
+    {path: tmURL.dashboard, component: DashboardComponent},
+    {path: tmURL.loan, component: LoanComponent}
 ];
 
 @NgModule({

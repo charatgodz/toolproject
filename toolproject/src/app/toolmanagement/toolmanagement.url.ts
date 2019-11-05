@@ -1,4 +1,5 @@
 export const tmURL = {
-    toolmanagement: 'tm'
+    dashboard: 'Dashboard',
+    loan: 'Loantool'
 
 }
