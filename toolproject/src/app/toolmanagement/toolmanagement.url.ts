@@ -1,4 +1,4 @@
 export const tmURL = {
-    toolmanagement: 'Toolmanagment'
+    toolmanagement: 'tm'
 
 }
