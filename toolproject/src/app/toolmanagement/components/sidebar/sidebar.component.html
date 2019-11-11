@@ -1,8 +1,8 @@
 <div class="sidebar sidebar-dark bg-dark">
     <ul class="list-unstyled">
-        <li><a href="https://bootadmin.net/demo"><i class="fa fa-fw fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a [routerLink]="['/', AppURL.Authen, tmURL.dashboard]"  routerLinkActive="active"><i class="fa fa-fw fa-tachometer-alt"></i> Dashboard</a></li>
         <li>
-            <a href="#sm_base" data-toggle="collapse">
+            <a [routerLink]="['/', AppURL.Authen, tmURL.loan]"  routerLinkActive="active" data-toggle="collapse">
                 <i class="fa fa-fw fa-cube"></i> Tool Loan/Return
             </a>
             <ul id="sm_base" class="list-unstyled collapse">

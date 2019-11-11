@@ -1,3 +1,5 @@
+import { tmURL } from './../../toolmanagement.url';
+import { AppURL } from './../../../app.url';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -11,5 +13,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
   }
+  AppURL = AppURL;
+  tmURL = tmURL;
 
 }
