@@ -1,7 +1,7 @@
+import { SharedsModule } from './shareds/shareds.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ToolmanagementModule } from './toolmanagement/toolmanagement.module';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -14,7 +14,8 @@ import { LoginComponent } from './login/login.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ToolmanagementModule
+    ToolmanagementModule,
+    SharedsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

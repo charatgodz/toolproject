@@ -1,3 +1,4 @@
+import { SharedsModule } from './../shareds/shareds.module';
 import { ToolmanagementRouting } from './toolmanagement.routing';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,7 +14,8 @@ import { LoanComponent } from './components/loan/loan.component';
   declarations: [DashboardComponent, NavbarComponent, SidebarComponent, TmContentComponent, LoanComponent],
   imports: [
     CommonModule,
-    ToolmanagementRouting
+    ToolmanagementRouting,
+    SharedsModule
   ]
 })
 
