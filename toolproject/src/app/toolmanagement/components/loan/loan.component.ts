@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
+declare const $: any;
+
 @Component({
   selector: 'app-loan',
   templateUrl: './loan.component.html',
@@ -11,11 +13,15 @@ export class LoanComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.createForm();
   }
+
   form_header: FormGroup;
   form_detail: FormGroup;
-
+ 
   isShow: boolean = false;
+  batch_array: Array<{batch: string, qty: number}> = [];
+
   ngOnInit() {
+
   }
 
   private createForm() {
@@ -31,6 +37,7 @@ export class LoanComponent implements OnInit {
       batch: ['', Validators.required]
     })
 
+ 
   };
 
   private onSubmitHeader() {
@@ -42,9 +49,9 @@ export class LoanComponent implements OnInit {
   }
 
   private onSubmitDetail() {
-    console.log(this.form_detail.value)
-    this.form_detail.reset()
-  
+   this.batch_array.push({batch: this.form_detail.get('batch').value, qty: 1});
+   console.log(JSON.stringify(this.batch_array));
+   this.form_detail.reset();
   }
 
   private reSetmodal() {
@@ -54,5 +61,11 @@ export class LoanComponent implements OnInit {
     this.form_header.get('aircraft').enable()
     this.form_header.get('flight').enable()
   }
+
+
+
+
+
+
 
 }

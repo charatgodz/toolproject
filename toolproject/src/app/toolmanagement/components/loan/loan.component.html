@@ -8,7 +8,7 @@
             <div class="col-6">
                 <p>
                     <button type="button" class="btn btn-danger btn-pill ml-2" style="float: right;" data-toggle="modal"
-                        data-target=".bd-example-modal-lg">Tool Loan</button>
+                        data-target="#loanModal">Tool Loan</button>
                     <button type="button" class="btn btn-success btn-pill" style="float: right;">Tool Return</button>
                 </p>
 
@@ -55,14 +55,11 @@
     </div>
 
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true">
+        aria-hidden="true" id="loanModal" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Tool Loan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="card mb-4">
@@ -82,7 +79,10 @@
                                             </div>
                                             <input formControlName="eng_id" type="text" class="form-control is-invalid"
                                                 id="validationServerUsername" placeholder="Username"
-                                                aria-describedby="inputGroupPrepend3" required>
+                                                aria-describedby="inputGroupPrepend3" [ngClass]="{
+                                                    'is-valid': form_header.get('eng_id').touched && form_header.get('eng_id').valid,
+                                                    'is-invalid': form_header.get('eng_id').touched && form_header.get('eng_id').invalid
+                                                }">
                                             <div class="invalid-feedback">
                                                 Employee ID is Required
                                             </div>
@@ -103,7 +103,10 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="exampleFormControlSelect1">Aircraft :</label>
                                         <select class="form-control" id="exampleFormControlSelect1"
-                                            formControlName="aircraft">
+                                            formControlName="aircraft" [ngClass]="{
+                                                'is-valid': form_header.get('aircraft').touched && form_header.get('aircraft').valid,
+                                                'is-invalid': form_header.get('aircraft').touched && form_header.get('aircraft').invalid
+                                            }">
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
@@ -114,8 +117,8 @@
 
                                     <div class="col-md-6 mb-3">
                                         <label for="validationServer03">Flight :</label>
-                                        <input type="text" class="form-control is-invalid" id="validationServer03"
-                                            placeholder="SL-XXX" required formControlName="flight">
+                                        <input type="text" class="form-control" id="validationServer03"
+                                            placeholder="SL-XXX"  formControlName="flight">
                                     </div>
 
 
@@ -123,7 +126,7 @@
 
                                 <div class="row float-right mb-2">
                                     <button type="submit" class="btn btn-primary"
-                                        [style.display]="!isShow ? 'block':'none'">Save changes</button>
+                                        [style.display]="!isShow ? 'block':'none'" [disabled]='!form_header.valid'>Save changes</button>
                                 </div>
 
 
@@ -149,7 +152,8 @@
                                             <span class="input-group-text" id="inputGroupPrepend3">Batch Number</span>
                                         </div>
                                         <input type="text" class="form-control is-invalid" id="validationServerUsername"
-                                            placeholder="Username" aria-describedby="inputGroupPrepend3" required formControlName="batch">
+                                            placeholder="Username" aria-describedby="inputGroupPrepend3" required
+                                            formControlName="batch">
                                         <div class="invalid-feedback">
                                             Batch Number ID is Required
                                         </div>
@@ -168,58 +172,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let item of batch_array;let i = index">
+                                        <td>{{ i+1 }}</td>
+                                        <td>{{ item.batch }}</td>
                                         <td>Test</td>
                                         <td>Test</td>
                                         <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                    </tr>
+                                        <td>{{ item.qty }}</td>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal"
                         (click)="reSetmodal()">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-success" [style.display]="!isShow ? 'none':'block'">Save
+                        changes</button>
                 </div>
             </div>
         </div>
