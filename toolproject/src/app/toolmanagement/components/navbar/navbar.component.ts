@@ -1,3 +1,5 @@
+import { IAccount, AccoutService } from './../../../shareds/services/accout.service';
+import { INavbarComponent } from './navbar.interface';
 import { AlertService } from './../../../shareds/services/alert.service';
 import { AppURL } from './../../../app.url';
 import { AuthenService } from './../../../services/authen.service';
@@ -9,13 +11,19 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit,INavbarComponent {
+  AppURL: any;
+  tmURL: any;
+  UserLogin: IAccount;
 
   constructor(
     private router: Router,
     private authen: AuthenService,
-    private alert: AlertService
-    ) { }
+    private alert: AlertService,
+    private account: AccoutService
+    ) {
+      this.intialLoadUserLogin();
+     }
 
   ngOnInit() {
   }
@@ -24,7 +32,18 @@ export class NavbarComponent implements OnInit {
     this.authen.clearAuthenticated();
     this.router.navigate(['/',AppURL.Login]);
     this.alert.notify('Log out Success', 'info')
+  }
 
+  intialLoadUserLogin(){
+    this.account.getUserLogin(this.authen.getAuthenticated())
+      .then(userLonin =>{
+        this.UserLogin = userLonin
+      })
+      .catch(err =>{
+        this.alert.notify(err.Message);
+        this.authen.clearAuthenticated();
+        this.router.navigate(['/',AppURL.Login]);
+      });
   }
 
 }

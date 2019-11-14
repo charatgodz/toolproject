@@ -1,3 +1,4 @@
+import { IAccount } from './accout.service';
 import { Ilogin } from './../../components/login/login.interface';
 import { Injectable } from '@angular/core';
 
@@ -19,6 +20,15 @@ export class AccoutService {
       mem_tel: '0989069055'
     }
   ];
+
+  getUserLogin(accessToken){
+    return new Promise<IAccount>((resolve,reject)=>{
+      const userLogin = this.mockUserItem.find(m=> m.mem_id == accessToken);
+      if(!userLogin) return reject({Message: 'AccessToken Invalid'});
+      resolve(userLogin)
+    });
+  }
+
 
   onLogin(model: Ilogin) {
     return new Promise<{accessToken: string}>((resolve, reject) => {
