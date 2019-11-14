@@ -4,19 +4,28 @@
             <h1 class="text-center mb-4">Tool Management</h1>
             <div class="card">
                 <div class="card-body">
-                    <form>
+                    <form [formGroup]="form" (submit)="onSubmit()">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Username">
+                            <input type="text" class="form-control" placeholder="Username" formControlName="username"
+                            [ngClass]="{
+                                'is-valid': form.get('username').touched && form.get('username').valid,
+                                'is-invalid': form.get('username').touched && form.get('username').invalid
+                            }"
+                            >
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-key"></i></span>
                             </div>
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" class="form-control" placeholder="Password" formControlName="password"
+                            [ngClass]="{
+                                'is-valid': form.get('password').touched && form.get('password').valid,
+                                'is-invalid': form.get('password').touched && form.get('password').invalid
+                            }">
                         </div>
 
                         <div class="form-check mb-3">
@@ -28,7 +37,7 @@
 
                         <div class="row">
                             <div class="col pr-2">
-                                <button type="submit" class="btn btn-block btn-primary">Login</button>
+                                <button type="submit" class="btn btn-block btn-primary" [disabled]='!form.valid'>Login</button>
                             </div>
                             <div class="col pl-2">
                                 <a class="btn btn-block btn-link" href="#">Forgot Password</a>

@@ -20,8 +20,13 @@ class Welcome extends API_Controller {
 	 */
 	public function index()
 	{
-		/* $this->load->view('welcome_message'); */
-		$this->json(['message' => 'successful.'],400);
+		$this->load->database();
+		$member = $this->db->get('member');
+		$this->json([
+			'message' => 'successful.',
+			'members' => $member->row()
+		]);
+
 
 	}
 }
