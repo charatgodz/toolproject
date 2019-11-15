@@ -1,3 +1,4 @@
+import { HttpService } from './../../services/http.service';
 import { IAccount } from './accout.service';
 import { Ilogin } from './../../components/login/login.interface';
 import { Injectable } from '@angular/core';
@@ -6,7 +7,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AccoutService {
-  constructor() { }
+  constructor(
+    private http: HttpService
+  ) { }
 
   mockUserItem: IAccount[] = [
     {
@@ -21,21 +24,19 @@ export class AccoutService {
     }
   ];
 
-  getUserLogin(accessToken){
-    return new Promise<IAccount>((resolve,reject)=>{
-      const userLogin = this.mockUserItem.find(m=> m.mem_id == accessToken);
-      if(!userLogin) return reject({Message: 'AccessToken Invalid'});
+  getUserLogin(accessToken) {
+    return new Promise<IAccount>((resolve, reject) => {
+      const userLogin = this.mockUserItem.find(m => m.mem_id == accessToken);
+      if (!userLogin) return reject({ Message: 'AccessToken Invalid' });
       resolve(userLogin)
     });
   }
 
 
   onLogin(model: Ilogin) {
-    return new Promise<{accessToken: string}>((resolve, reject) => {
-     const userLogin = this.mockUserItem.find(item => item.company_id == model.username && item.mem_password == model.password);
-      if(!userLogin) return reject({ message : 'Username and Password Invalid' })
-      resolve({accessToken: userLogin.mem_id})
-    });
+    return this.http
+    .requestPost('api/accout/login',model)
+    .toPromise() as Promise<{accessToken: string}>
   }
 
 }
