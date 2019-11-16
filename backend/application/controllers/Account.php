@@ -18,8 +18,9 @@ class Account extends API_Controller
             /**Verified Username and Password with out hast */
         $memberItem = $this->members->find_by_username($this->input->post('username'));
         if (!empty($memberItem) && $this->input->post('password') == $memberItem->mem_password) {
+            $accessToken =  $this->access_token_jwt->generateAccessToken($memberItem->mem_username);
             return $this->json([
-                'accessToken' => ''
+                'accessToken' => $accessToken
             ]);
         }
         return $this->json(['message' => 'Username and Password Invalid'], 400);
