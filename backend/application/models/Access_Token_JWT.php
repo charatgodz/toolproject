@@ -25,10 +25,7 @@ class Access_Token_JWT extends CI_Model implements IAccessToken
             'exp' => $this->generateExp()
         ];
         $token = JWT::encode($payload, $this->accessKey);
-        return [
-            'JWT Endcode' => $token,
-            'JWT Decode' =>  JWT::decode($token, $this->accessKey, ['HS256'])
-        ];
+        return $token;
     }
 
     public function verifyToken($token)

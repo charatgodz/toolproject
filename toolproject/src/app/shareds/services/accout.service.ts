@@ -2,6 +2,7 @@ import { HttpService } from './../../services/http.service';
 import { IAccount } from './accout.service';
 import { Ilogin } from './../../components/login/login.interface';
 import { Injectable } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -24,22 +25,21 @@ export class AccoutService {
     }
   ];
 
-  getUserLogin(accessToken) {
-    return new Promise<IAccount>((resolve, reject) => {
-      const userLogin = this.mockUserItem.find(m => m.mem_id == accessToken);
-      if (!userLogin) return reject({ Message: 'AccessToken Invalid' });
-      resolve(userLogin)
-    });
+
+  getUserLogin(accessToken: string) {
+    return this.http
+      .requestGet('api/member/data' ,accessToken)
+      .toPromise()as Promise<IAccount>
   }
 
 
   onLogin(model: Ilogin) {
     return this.http
-    .requestPost('api/accout/login',model)
-    .toPromise() as Promise<{accessToken: string}>
+      .requestPost('api/accout/login', model)
+      .toPromise() as Promise<{ accessToken: string }>
   }
 
-}
+} 
 
 export interface IAccount {
   mem_id: any;
