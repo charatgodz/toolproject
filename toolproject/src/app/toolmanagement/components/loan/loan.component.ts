@@ -1,5 +1,7 @@
+import { AlertService } from './../../../shareds/services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { ToolService } from '../../services/Tool.service';
 
 declare const $: any;
 
@@ -10,18 +12,22 @@ declare const $: any;
 })
 
 export class LoanComponent implements OnInit {
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private tool: ToolService, private alert: AlertService) {
     this.createForm();
+    /* this.loadLoanTable(); */
   }
 
   form_header: FormGroup;
   form_detail: FormGroup;
- 
+  header_id: Number;
+
   isShow: boolean = false;
-  batch_array: Array<{batch: string, qty: number}> = [];
+  batch_array: Array<{ batch: string, qty: number }> = [];
 
   ngOnInit() {
-
+    this.tool.getToolLoan()
+    .then(res => console.log(res))
+    .catch(err => this.alert.notify(err.Message))
   }
 
   private createForm() {
@@ -34,10 +40,12 @@ export class LoanComponent implements OnInit {
     this.form_header.get('eng_name').disable()
 
     this.form_detail = this.fb.group({
-      batch: ['', Validators.required]
+      batch: ['', Validators.required],
+      header_id: ['', Validators.required],
+      qty_borrow: ['1', Validators.required]
     })
 
- 
+
   };
 
   private onSubmitHeader() {
@@ -46,12 +54,17 @@ export class LoanComponent implements OnInit {
     this.form_header.get('eng_id').disable()
     this.form_header.get('aircraft').disable()
     this.form_header.get('flight').disable()
+    this.tool.insertLoadHeader(this.form_header.value)
+      .then(res => this.header_id = res.header_id)
+      .catch(err => this.alert.notify(err.Message));
   }
 
   private onSubmitDetail() {
-   this.batch_array.push({batch: this.form_detail.get('batch').value, qty: 1});
-   console.log(JSON.stringify(this.batch_array));
-   this.form_detail.reset();
+    this.form_detail.get('header_id').setValue(this.header_id)
+    this.tool.insertLoanDetail(this.form_detail.value)
+      .then(res => console.log(res))
+      .catch(err => this.alert.notify(err.Message))
+      .finally()
   }
 
   private reSetmodal() {
@@ -62,6 +75,10 @@ export class LoanComponent implements OnInit {
     this.form_header.get('flight').enable()
   }
 
+/*   private loadLoanTable() {
+    this.tool.getToolLoan();
+  }
+ */
 
 
 

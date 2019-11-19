@@ -1,4 +1,4 @@
-import { IAccount } from './../../../shareds/services/accout.service';
+import { IAccount } from "./../../../shareds/interfaces/shared.interface";
 export interface INavbarComponent  {
     AppURL: any;
     tmURL: any;

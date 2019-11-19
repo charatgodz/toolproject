@@ -21,17 +21,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
+                        <tr *ngFor="let item of items;let i = index">
+                            <td>{{ i+1 }}</td>
+                            <td>{{ item.batch }}</td>
+                            <td>{{ item.pn_description }}</td>
+                            <td>{{ item.pn }}</td>
+                            <td>{{ item.sn }}</td>
+                            <td>{{ item.location }}</td>
+                            <td>{{ item.bin }}</td>
+                            <td>{{ item.qty_available }}</td>
+                            <td>{{ item.tool_life_expiration }}</td>
+                            <td>Tool Status</td>
                         </tr>
                     </tbody>
                 </table>

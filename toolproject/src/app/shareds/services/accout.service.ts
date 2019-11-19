@@ -1,5 +1,5 @@
 import { HttpService } from './../../services/http.service';
-import { IAccount } from './accout.service';
+import { IAccount } from './../interfaces/shared.interface';
 import { Ilogin } from './../../components/login/login.interface';
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
@@ -43,14 +43,4 @@ export class AccoutService {
 
 } 
 
-export interface IAccount {
-  mem_id: string;
-  mem_title: string;
-  mem_name: string;
-  mem_sname: string;
-  mem_position: string;
-  company_id: string;
-  mem_username: string;
-  mem_nname: string;
-  mem_tel: string;
-}
+

@@ -1,4 +1,5 @@
-import { IAccount, AccoutService } from './../../../shareds/services/accout.service';
+import { AccoutService } from './../../../shareds/services/accout.service';
+import { IAccount } from "./../../../shareds/interfaces/shared.interface";
 import { INavbarComponent } from './navbar.interface';
 import { AlertService } from './../../../shareds/services/alert.service';
 import { AppURL } from './../../../app.url';
