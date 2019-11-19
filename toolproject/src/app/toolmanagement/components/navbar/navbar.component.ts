@@ -29,12 +29,16 @@ export class NavbarComponent implements OnInit,INavbarComponent {
   }
 
   onLogout(){
+    this.alert.notify('Log out Success', 'info')
     this.authen.clearAuthenticated();
     this.router.navigate(['/',AppURL.Login]);
-    this.alert.notify('Log out Success', 'info')
+    this.UserLogin.mem_id = null;  
   }
 
   intialLoadUserLogin(){
+    this.UserLogin = this.account.UserLogin;
+    if(this.UserLogin.mem_id) return setTimeout(() =>  100);
+
     this.account.getUserLogin(this.authen.getAuthenticated())
       .then(userLonin =>{
         this.UserLogin = userLonin

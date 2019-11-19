@@ -12,24 +12,26 @@ export class AccoutService {
     private http: HttpService
   ) { }
 
-  mockUserItem: IAccount[] = [
-    {
-      mem_id: 1,
-      mem_name: 'Charat',
-      mem_sname: 'Krutmanee',
-      mem_position: 'SR Logistic',
-      company_id: 'TL140802',
-      mem_password: 'TL140802',
-      mem_nname: 'OOO',
-      mem_tel: '0989069055'
+    public UserLogin: IAccount = {} as any;
+    public setUserLogin(userLogin: IAccount){
+      this.UserLogin.mem_id = userLogin.mem_id;
+      this.UserLogin.company_id = userLogin.company_id;
+      this.UserLogin.mem_name = userLogin.mem_name;
+      this.UserLogin.mem_sname = userLogin.mem_sname;
+      this.UserLogin.mem_nname = userLogin.mem_nname;
+      this.UserLogin.mem_position = userLogin.mem_position;
+      this.UserLogin.mem_tel = this.UserLogin.mem_tel;
+      this.UserLogin.mem_title  = this.UserLogin.mem_title;
+      this.UserLogin.mem_username = this.UserLogin.mem_username;
+      return this.UserLogin;
     }
-  ];
 
 
   getUserLogin(accessToken: string) {
-    return this.http
+    return (this.http
       .requestGet('api/member/data' ,accessToken)
-      .toPromise()as Promise<IAccount>
+      .toPromise()as Promise<IAccount>)
+      .then(userLogin => this.setUserLogin(userLogin));
   }
 
 
@@ -42,12 +44,13 @@ export class AccoutService {
 } 
 
 export interface IAccount {
-  mem_id: any;
+  mem_id: string;
+  mem_title: string;
   mem_name: string;
   mem_sname: string;
   mem_position: string;
   company_id: string;
-  mem_password: string;
+  mem_username: string;
   mem_nname: string;
   mem_tel: string;
 }

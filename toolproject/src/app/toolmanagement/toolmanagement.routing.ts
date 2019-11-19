@@ -1,3 +1,4 @@
+import { InventoryComponent } from './components/inventory/inventory.component';
 import { tmURL } from './toolmanagement.url';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -9,7 +10,8 @@ import { LoanComponent } from './components/loan/loan.component';
 const routes: Routes = [
     {path: '', redirectTo: tmURL.dashboard, pathMatch: 'full'},
     {path: tmURL.dashboard, component: DashboardComponent},
-    {path: tmURL.loan, component: LoanComponent}
+    {path: tmURL.loan, component: LoanComponent},
+    {path: tmURL.inventory, component: InventoryComponent}
 ];
 
 @NgModule({
