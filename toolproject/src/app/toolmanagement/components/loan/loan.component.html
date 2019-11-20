@@ -84,7 +84,12 @@
                                                     'is-invalid': form_header.get('eng_id').touched && form_header.get('eng_id').invalid
                                                 }">
                                             <div class="invalid-feedback">
-                                                Employee ID is Required
+                                                <div *ngIf="eng_id_error.errors?.cannotContainSpace">
+                                                    Employee ID Can not Contain Space.
+                                                </div>
+                                                <div *ngIf="eng_id_error.required">
+                                                    Employee ID is Required
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -118,7 +123,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="validationServer03">Flight :</label>
                                         <input type="text" class="form-control" id="validationServer03"
-                                            placeholder="SL-XXX"  formControlName="flight">
+                                            placeholder="SL-XXX" formControlName="flight">
                                     </div>
 
 
@@ -126,7 +131,8 @@
 
                                 <div class="row float-right mb-2">
                                     <button type="submit" class="btn btn-primary"
-                                        [style.display]="!isShow ? 'block':'none'" [disabled]='!form_header.valid'>Save changes</button>
+                                        [style.display]="!isShow ? 'block':'none'" [disabled]='!form_header.valid'>Save
+                                        changes</button>
                                 </div>
 
 

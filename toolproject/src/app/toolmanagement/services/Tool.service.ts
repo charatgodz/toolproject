@@ -112,11 +112,10 @@ export class ToolService {
 
   getToolLoan() {
     return new Promise<ILoanTool[]>((resolve, reject) => {
-      const xxx  = this.loanDetail.concat(this.loanHeader);
-      console.log(xxx)
+ 
     });
   }
-
+  
 
 
 }

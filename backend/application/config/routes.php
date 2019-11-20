@@ -53,6 +53,7 @@ $route['default_controller'] = 'welcome';
 $route['api/accout/login']['POST'] = 'account/login';
 $route['api/member/data']['GET'] = 'member/data';
 $route['api/tool']['GET'] = 'tool/get_tools';
+$route['api/employee']['POST'] = 'employee/get_employees';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

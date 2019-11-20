@@ -1,3 +1,5 @@
+import { Iemployee } from './../../../shareds/interfaces/shared.interface';
+import { HttpService } from './../../../services/http.service';
 import { AlertService } from './../../../shareds/services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl } from '@angular/forms'
@@ -13,25 +15,35 @@ declare const $: any;
 })
 
 export class LoanComponent implements OnInit {
-  constructor(private fb: FormBuilder, private tool: ToolService, private alert: AlertService) {
+  constructor(
+    private fb: FormBuilder,
+    private tool: ToolService,
+    private alert: AlertService,
+    private http: HttpService
+  ) {
+
     this.createForm();
-    /* this.loadLoanTable(); */
+
   }
 
   form_header: FormGroup;
   form_detail: FormGroup;
   header_id: Number;
+  emp: Iemployee;
+
 
   isShow: boolean = false;
   batch_array: Array<{ batch: string, qty: number }> = [];
 
-  ngOnInit() {
-
+    ngOnInit() {
+      this.test()
   }
+
+
 
   private createForm() {
     this.form_header = this.fb.group({
-      eng_id: ['', [Validators.required, SharedValidators.cannotContainSpace]],
+      eng_id: ['', [Validators.required, SharedValidators],SharedValidators],
       eng_name: [''],
       aircraft: ['', Validators.required],
       flight: ['']
@@ -80,9 +92,15 @@ export class LoanComponent implements OnInit {
     }
    */
 
+  get eng_id_error() {
+    return this.form_header.get('eng_id')
+  }
 
+  async test(){
+    const control: string = '140802';
+    const x = await this.http.requestPost('api/employee', { company_id: 'TL' + control }).toPromise() ;
+    console.log(x)
 
-
-
+  }
 
 }

@@ -60,3 +60,9 @@ export interface ILoanTool{
     sn?: string;
     qty_borrow?: Number;
 }
+
+export interface Iemployee {
+    employee_id: string;
+    company_id: string;
+    employee_name: string;
+  }
