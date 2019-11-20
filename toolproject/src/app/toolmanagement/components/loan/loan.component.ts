@@ -1,7 +1,8 @@
 import { AlertService } from './../../../shareds/services/alert.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl } from '@angular/forms'
 import { ToolService } from '../../services/Tool.service';
+import { SharedValidators } from 'src/app/shareds/Validators/shared.validators';
 
 declare const $: any;
 
@@ -25,14 +26,12 @@ export class LoanComponent implements OnInit {
   batch_array: Array<{ batch: string, qty: number }> = [];
 
   ngOnInit() {
-    this.tool.getToolLoan()
-    .then(res => console.log(res))
-    .catch(err => this.alert.notify(err.Message))
+
   }
 
   private createForm() {
     this.form_header = this.fb.group({
-      eng_id: ['', Validators.required],
+      eng_id: ['', [Validators.required, SharedValidators.cannotContainSpace]],
       eng_name: [''],
       aircraft: ['', Validators.required],
       flight: ['']
@@ -50,7 +49,6 @@ export class LoanComponent implements OnInit {
 
   private onSubmitHeader() {
     this.isShow = true;
-    this.form_header.get('eng_id').setValue(1234)
     this.form_header.get('eng_id').disable()
     this.form_header.get('aircraft').disable()
     this.form_header.get('flight').disable()
@@ -62,7 +60,10 @@ export class LoanComponent implements OnInit {
   private onSubmitDetail() {
     this.form_detail.get('header_id').setValue(this.header_id)
     this.tool.insertLoanDetail(this.form_detail.value)
-      .then(res => console.log(res))
+      .then(res => {
+        this.tool.getToolLoan();
+        this.form_detail.reset();
+      })
       .catch(err => this.alert.notify(err.Message))
       .finally()
   }
@@ -74,11 +75,10 @@ export class LoanComponent implements OnInit {
     this.form_header.get('aircraft').enable()
     this.form_header.get('flight').enable()
   }
-
-/*   private loadLoanTable() {
-    this.tool.getToolLoan();
-  }
- */
+  /*   private loadLoanTable() {
+      this.tool.getToolLoan();
+    }
+   */
 
 
 

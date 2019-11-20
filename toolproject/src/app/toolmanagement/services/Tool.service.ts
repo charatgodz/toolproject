@@ -1,4 +1,5 @@
 import { resolve } from 'url';
+import { HttpService } from './../../services/http.service';
 import { Itool, IinventoryComponent, IloanHeader, IloanDetail, ILoanTool } from './../../shareds/interfaces/shared.interface';
 import { Injectable } from '@angular/core';
 
@@ -87,12 +88,11 @@ export class ToolService {
   public loanHeader: IloanHeader[] = [];
   public loanDetail: IloanDetail[] = [];
   public loanTool: ILoanTool[] = [];
-  constructor() { }
+  constructor(private http: HttpService) { }
 
-  getTools() {
-    return new Promise<Itool[]>((resolve, reject) => {
-      resolve(this.items);
-    });
+  getTools(accessToken) {
+    return this.http.requestGet('api/tool', accessToken)
+      .toPromise() as Promise<Itool[]>
   }
 
   insertLoadHeader(model: IloanHeader) {
@@ -104,16 +104,16 @@ export class ToolService {
   }
 
   insertLoanDetail(model: IloanDetail) {
-    return new Promise<IloanDetail>((resolve, reject) => {
+    return new Promise<IloanDetail[]>((resolve, reject) => {
       this.loanDetail.push(model);
-      resolve(model);
+      resolve(this.loanDetail);
     });
   }
 
   getToolLoan() {
     return new Promise<ILoanTool[]>((resolve, reject) => {
-     this.loanTool = this.loanHeader.map((item,i)=>Object.assign({}, item,this.loanDetail[i]));
-      resolve(this.loanTool)
+      const xxx  = this.loanDetail.concat(this.loanHeader);
+      console.log(xxx)
     });
   }
 

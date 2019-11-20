@@ -1,3 +1,4 @@
+import { AuthenService } from './../../../services/authen.service';
 import { AlertService } from './../../../shareds/services/alert.service';
 import { Itool } from './../../../shareds/interfaces/shared.interface';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +14,8 @@ export class InventoryComponent implements IinventoryComponent {
 
   constructor(
     private tool : ToolService,
-    private alert : AlertService
+    private alert : AlertService,
+    private authen: AuthenService
   ) {
     this.intialLoadTools(); 
    }
@@ -24,11 +26,8 @@ export class InventoryComponent implements IinventoryComponent {
 
   private intialLoadTools(){
     this.tool
-    .getTools()
-    .then(items =>{
-      this.items = items;
-    })
-    .catch(err => this.alert.notify(err.Message))
+    .getTools(this.authen.getAuthenticated())
+    .then(res => this.items = res)
   }
 
 
