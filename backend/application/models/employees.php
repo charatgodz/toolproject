@@ -11,7 +11,7 @@ class Employees extends CI_Model{
 
     /**Find UserLogin */
     public function find_by_employee_id($company_id){
-        return $this->db->get_where($this->table, ['company_id' => $company_id])->row();
+        return $this->db->get_where($this->table, ['company_id' => $company_id])->result();
     }
 
 }

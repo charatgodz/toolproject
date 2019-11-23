@@ -66,7 +66,7 @@
                         <div class="card-header bg-white font-weight-bold">
                             Loan Information
                         </div>
-                        <form [formGroup]="form_header" (submit)="onSubmitHeader()">
+                        <form [formGroup]="form_header" (submit)="onSubmitHeader()" autocomplete="off">
                             <div class="card-body">
 
                                 <div class="form-row">
@@ -87,19 +87,25 @@
                                                 <div *ngIf="eng_id_error.errors?.cannotContainSpace">
                                                     Employee ID Can not Contain Space.
                                                 </div>
-                                                <div *ngIf="eng_id_error.required">
-                                                    Employee ID is Required
+                                                <div *ngIf="eng_id_error.errors?.required">
+                                                    Employee ID is Required.
                                                 </div>
+                                                <div *ngIf="eng_id_error.errors?.employee">
+                                                    Employee ID is Not Found.
+                                                </div>
+                                            </div>
+                                            <div class="valid-feedback">
+                                                Success!
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="validationServer01">Employee name :</label>
-                                        <input type="text" class="form-control is-valid" id="validationServer01"
-                                            formControlName="eng_name" placeholder="First name" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
+                                        <input type="text" class="form-control is-invalid" id="validationServer01"
+                                            formControlName="eng_name" placeholder="First name" [ngClass]="{
+                                                'is-valid': form_header.get('eng_name').touched && form_header.get('eng_name').valid,
+                                                'is-invalid': form_header.get('eng_name').touched && form_header.get('eng_name').invalid
+                                            }">
                                     </div>
 
                                 </div>
