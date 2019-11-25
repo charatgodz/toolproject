@@ -34,10 +34,8 @@ export interface IinventoryComponent {
 }
 
 export interface IloanHeader {
-    header_id: number;
     eng_id: string;
-    eng_name?: string;
-    aircraft: string;
+    ac_reg: string;
     flight?: string;
 }
 

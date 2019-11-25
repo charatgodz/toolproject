@@ -21,9 +21,9 @@ export class HttpService {
       .pipe(catchError(err => this.handelError(err)));
   }
 
-  requestPost(url: string, body: any) {
+  requestPost(url: string, body: any, accessToken?: String) {
     return this.http
-      .post(`${this.address}${url}`, body)
+      .post(`${this.address}${url}`, body, {headers: this.appendHeaders(accessToken)})
       .pipe(catchError(err => this.handelError(err)));
   }
 

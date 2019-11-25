@@ -22,7 +22,7 @@ class Loantool extends API_Controller
             $model['store_id'] = $this->User->company_id;
             $created = $this->loantools->insert_header($model);
             return $this->json([
-                'message' => $created
+                'header_id' => $created
             ]); 
         }
     }

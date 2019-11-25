@@ -1,3 +1,4 @@
+import { AuthenService } from './../../../services/authen.service';
 import { Iemployee, Iworkorder, IloanHeader } from './../../../shareds/interfaces/shared.interface';
 import { AlertService } from './../../../shareds/services/alert.service';
 import { Component, OnInit } from '@angular/core';
@@ -22,7 +23,8 @@ export class LoanComponent implements OnInit {
     private tool: ToolService,
     private alert: AlertService,
     private employee: EmployeeService,
-    private workorder: WorkorderService
+    private workorder: WorkorderService,
+    private authen: AuthenService
   ) {
 
     this.get_workorder();
@@ -58,14 +60,14 @@ export class LoanComponent implements OnInit {
     this.form_header = this.fb.group({
       eng_id: ['', [Validators.required, SharedValidators.cannotContainSpace], [checkEmployee(this.employee)]],
       eng_name: ['', Validators.required],
-      aircraft: ['', Validators.required],
+      ac_reg: ['', Validators.required],
       flight: ['']
     });
     this.form_header.get('eng_name').disable();
     this.form_detail = this.fb.group({
       batch: ['', Validators.required],
       header_id: ['', Validators.required],
-      qty_borrow: ['1', Validators.required]
+      qty_borrow: ['', Validators.required]
     })
 
 
@@ -74,29 +76,18 @@ export class LoanComponent implements OnInit {
   private onSubmitHeader() {
     this.isShow = true;
     this.set_modelHeader(this.form_header.value)
-    this.tool.insertLoadHeader(this.form_header.value)
-      .then(res => this.header_id = res.header_id)
-      .catch(err => this.alert.notify(err.Message));
-    console.log(this.modelHeader)
+    this.tool.insertLoadHeader(this.modelHeader, this.authen.getAuthenticated()).subscribe(res => {this.header_id = res.header_id; console.log(this.header_id)})
   }
 
   private onSubmitDetail() {
-    this.form_detail.get('header_id').setValue(this.header_id)
-    this.tool.insertLoanDetail(this.form_detail.value)
-      .then(res => {
-        this.tool.getToolLoan();
-        this.form_detail.reset();
-      })
-      .catch(err => this.alert.notify(err.Message))
-      .finally()
+    this.form_detail.get('header_id').setValue(this.header_id);
+    console.log(this.form_detail.value);
+    this.form_detail.reset();
   }
 
   private reSetmodal() {
     this.isShow = false;
     this.form_header.reset();
-    this.form_header.get('eng_id').enable()
-    this.form_header.get('aircraft').enable()
-    this.form_header.get('flight').enable()
   }
 
   get eng_id_error() {
@@ -121,9 +112,8 @@ export class LoanComponent implements OnInit {
 
   private set_modelHeader(header: IloanHeader) {
     this.modelHeader.eng_id = 'TL' + header.eng_id.toString();
-    this.modelHeader.aircraft = header.aircraft;
+    this.modelHeader.ac_reg = header.ac_reg;
     this.modelHeader.flight = header.flight.trim().toUpperCase();
-    this.modelHeader.header_id = header.header_id;
   }
 
 }

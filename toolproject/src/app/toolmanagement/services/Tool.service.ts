@@ -91,16 +91,12 @@ export class ToolService {
   constructor(private http: HttpService) { }
 
   getTools(accessToken) {
-    return this.http.requestGet('api/tool', accessToken)
-      .toPromise() as Promise<Itool[]>
+    return (this.http.requestGet('api/tool', accessToken)
+      .toPromise() as Promise<Itool[]>).then(res => res.slice(0,100))
   }
 
-  insertLoadHeader(model: IloanHeader) {
-    return new Promise<IloanHeader>((resolve, reject) => {
-      model.header_id = Math.random();
-      this.loanHeader.push(model);
-      resolve(model)
-    });
+  insertLoadHeader(model: IloanHeader, accessToken) {
+   return this.http.requestPost('api/tool/loanheader', model, accessToken)
   }
 
   insertLoanDetail(model: IloanDetail) {
