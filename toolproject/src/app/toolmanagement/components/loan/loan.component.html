@@ -82,7 +82,7 @@
                                                 aria-describedby="inputGroupPrepend3" [ngClass]="{
                                                     'is-valid': form_header.get('eng_id').touched && form_header.get('eng_id').valid,
                                                     'is-invalid': form_header.get('eng_id').touched && form_header.get('eng_id').invalid
-                                                }">
+                                                }" [readonly]='isShow' >
                                             <div class="invalid-feedback">
                                                 <div *ngIf="eng_id_error.errors?.cannotContainSpace">
                                                     Employee ID Can not Contain Space.
@@ -105,7 +105,7 @@
                                             formControlName="eng_name" placeholder="First name" [ngClass]="{
                                                 'is-valid': form_header.get('eng_name').touched && form_header.get('eng_name').valid,
                                                 'is-invalid': form_header.get('eng_name').touched && form_header.get('eng_name').invalid
-                                            }">
+                                            }"[readonly]='isShow'>
                                     </div>
 
                                 </div>
@@ -117,7 +117,7 @@
                                             formControlName="aircraft" class="form-control"
                                             [ngClass]="{
                                         'is-valid': form_header.get('aircraft').touched && form_header.get('aircraft').valid,
-                                        'is-invalid': form_header.get('aircraft').touched && form_header.get('aircraft').invalid}">
+                                        'is-invalid': form_header.get('aircraft').touched && form_header.get('aircraft').invalid}" [readonly]='isShow'>
                                         <div class="invalid-feedback">
                                             <div *ngIf="form_header.get('aircraft').errors?.required">
                                                  Workorder or Aircraft is Required.
@@ -131,7 +131,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="validationServer03">Flight : (Option)</label>
                                         <input type="text" class="form-control text-uppercase" id="validationServer03"
-                                            placeholder="SL-XXX" formControlName="flight">
+                                            placeholder="SL-XXX" formControlName="flight" [readonly]='isShow'>
                                     </div>
 
 

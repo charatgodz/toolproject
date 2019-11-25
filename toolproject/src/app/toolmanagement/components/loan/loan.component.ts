@@ -74,9 +74,6 @@ export class LoanComponent implements OnInit {
   private onSubmitHeader() {
     this.isShow = true;
     this.set_modelHeader(this.form_header.value)
-    this.form_header.get('eng_id').disable()
-    this.form_header.get('aircraft').disable()
-    this.form_header.get('flight').disable()
     this.tool.insertLoadHeader(this.form_header.value)
       .then(res => this.header_id = res.header_id)
       .catch(err => this.alert.notify(err.Message));
