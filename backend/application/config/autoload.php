@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('members','access_token_jwt','tools','employees');
+$autoload['model'] = array('members','access_token_jwt','tools','employees', 'workorders','loantools');

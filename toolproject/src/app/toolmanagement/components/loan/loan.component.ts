@@ -1,4 +1,4 @@
-import { Iemployee } from './../../../shareds/interfaces/shared.interface';
+import { Iemployee, Iworkorder, IloanHeader } from './../../../shareds/interfaces/shared.interface';
 import { AlertService } from './../../../shareds/services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
@@ -6,6 +6,7 @@ import { ToolService } from '../../services/Tool.service';
 import { SharedValidators, checkEmployee } from 'src/app/shareds/Validators/shared.validators';
 import { EmployeeService } from '../../services/employee.service';
 import { map } from 'rxjs/operators';
+import { WorkorderService } from '../../services/workorder.service';
 
 declare const $: any;
 
@@ -20,9 +21,11 @@ export class LoanComponent implements OnInit {
     private fb: FormBuilder,
     private tool: ToolService,
     private alert: AlertService,
-    private employee: EmployeeService
+    private employee: EmployeeService,
+    private workorder: WorkorderService
   ) {
 
+    this.get_workorder();
     this.createForm();
 
   }
@@ -31,7 +34,8 @@ export class LoanComponent implements OnInit {
   form_detail: FormGroup;
   header_id: Number;
   emp: Iemployee[] = [];
-
+  work: Iworkorder[] = [];
+  modelHeader: IloanHeader = {} as any;
 
   isShow: boolean = false;
   batch_array: Array<{ batch: string, qty: number }> = [];
@@ -43,7 +47,7 @@ export class LoanComponent implements OnInit {
     ))
 
     id.subscribe(id => {
-      if (!id) return;
+      if (!id) return this.setName('');
       this.getEmp(id)
     })
 
@@ -69,12 +73,14 @@ export class LoanComponent implements OnInit {
 
   private onSubmitHeader() {
     this.isShow = true;
+    this.set_modelHeader(this.form_header.value)
     this.form_header.get('eng_id').disable()
     this.form_header.get('aircraft').disable()
     this.form_header.get('flight').disable()
     this.tool.insertLoadHeader(this.form_header.value)
       .then(res => this.header_id = res.header_id)
       .catch(err => this.alert.notify(err.Message));
+    console.log(this.modelHeader)
   }
 
   private onSubmitDetail() {
@@ -109,9 +115,19 @@ export class LoanComponent implements OnInit {
   }
 
   private getEmp(id) {
-    return this.employee.getEmployee(id).subscribe(res => this.setName((res[0].employee_name).toString()))
+    return this.employee.getEmployee(id).subscribe(res => this.setName((res[0].employee_name).toString()));
   }
 
+  private get_workorder() {
+    this.workorder.getWorkorders().subscribe(res => { this.work = res })
+  }
+
+  private set_modelHeader(header: IloanHeader) {
+    this.modelHeader.eng_id = 'TL' + header.eng_id.toString();
+    this.modelHeader.aircraft = header.aircraft;
+    this.modelHeader.flight = header.flight.trim().toUpperCase();
+    this.modelHeader.header_id = header.header_id;
+  }
 
 }
 

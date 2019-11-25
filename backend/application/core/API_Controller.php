@@ -14,9 +14,9 @@ class API_Controller extends CI_Controller
     {
         $this->User = null;
         if (isset($_SERVER['HTTP_AUTHORIZATION']) && !empty($_SERVER['HTTP_AUTHORIZATION'])) {
-            $authorizationToken =  str_replace('Bearer ','', trim($_SERVER['HTTP_AUTHORIZATION']));
+            $authorizationToken =  str_replace('Bearer ', '', trim($_SERVER['HTTP_AUTHORIZATION']));
             $this->User = $this->access_token_jwt->verifyToken($authorizationToken);
-            return;
+            if (!empty($this->User)) return;
         }
         response_json([
             'message' => 'Unauthorized'

@@ -47,7 +47,7 @@ export interface IloanDetail {
     header_id: Number;
 }
 
-export interface ILoanTool{
+export interface ILoanTool {
     header_id: number;
     eng_id: string;
     eng_name?: string;
@@ -65,4 +65,10 @@ export interface Iemployee {
     employee_id: string;
     company_id: string;
     employee_name: string;
-  }
+}
+
+export interface Iworkorder {
+    ac_id: string;
+    ac_reg: string;
+    ac_type: string;
+}

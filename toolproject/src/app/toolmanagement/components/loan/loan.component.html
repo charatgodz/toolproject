@@ -112,23 +112,25 @@
                                 <div class="form-row">
 
                                     <div class="col-md-6 mb-3">
-                                        <label for="exampleFormControlSelect1">Aircraft :</label>
-                                        <select class="form-control" id="exampleFormControlSelect1"
-                                            formControlName="aircraft" [ngClass]="{
-                                                'is-valid': form_header.get('aircraft').touched && form_header.get('aircraft').valid,
-                                                'is-invalid': form_header.get('aircraft').touched && form_header.get('aircraft').invalid
-                                            }">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
+                                        <label for="aircraft">Aircraft :</label>
+                                        <input type="text" list="aircraftlist" name="aircraft" id="aircraft"
+                                            formControlName="aircraft" class="form-control"
+                                            [ngClass]="{
+                                        'is-valid': form_header.get('aircraft').touched && form_header.get('aircraft').valid,
+                                        'is-invalid': form_header.get('aircraft').touched && form_header.get('aircraft').invalid}">
+                                        <div class="invalid-feedback">
+                                            <div *ngIf="form_header.get('aircraft').errors?.required">
+                                                 Workorder or Aircraft is Required.
+                                            </div>
+                                        </div>
+                                        <datalist id="aircraftlist">
+                                            <option *ngFor="let item of work">{{ item.ac_reg }}</option>
+                                        </datalist>
                                     </div>
 
                                     <div class="col-md-6 mb-3">
-                                        <label for="validationServer03">Flight :</label>
-                                        <input type="text" class="form-control" id="validationServer03"
+                                        <label for="validationServer03">Flight : (Option)</label>
+                                        <input type="text" class="form-control text-uppercase" id="validationServer03"
                                             placeholder="SL-XXX" formControlName="flight">
                                     </div>
 
@@ -145,10 +147,6 @@
                             </div>
 
                         </form>
-
-
-
-
                     </div>
 
                     <div class="card md-4" [style.display]="!isShow ? 'none':'block'">
@@ -157,17 +155,17 @@
                         </div>
 
                         <div class="card-body">
-                            <form [formGroup]="form_detail" (submit)="onSubmitDetail()">
+                            <form [formGroup]="form_detail" (submit)="onSubmitDetail()" autocomplete="off">
                                 <div class="form-row">
                                     <div class="input-group col-md-6 mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupPrepend3">Batch Number</span>
                                         </div>
                                         <input type="text" class="form-control is-invalid" id="validationServerUsername"
-                                            placeholder="Username" aria-describedby="inputGroupPrepend3" required
+                                            placeholder="Please input Here !" aria-describedby="inputGroupPrepend3" required
                                             formControlName="batch">
                                         <div class="invalid-feedback">
-                                            Batch Number ID is Required
+                                           Scan or Enter Batch Number ID
                                         </div>
                                     </div>
                                 </div>
