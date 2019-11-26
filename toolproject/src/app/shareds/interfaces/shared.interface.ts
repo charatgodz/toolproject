@@ -31,6 +31,21 @@ export interface IAccount {
 export interface IinventoryComponent {
     items: Itool[];
 
+    seachText: string;
+    searchType: IToolSearchKey;
+    searchTypeItems: IToolSearchKey[];
+    onSearchItem(): void;
+
+}
+
+export interface IToolSearch{
+    searchType : string;
+    seachText : string;
+}
+
+export interface IToolSearchKey {
+    key: string;
+    value: string;
 }
 
 export interface IloanHeader {

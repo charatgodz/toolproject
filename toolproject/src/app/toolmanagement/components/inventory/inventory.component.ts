@@ -1,6 +1,6 @@
 import { AuthenService } from './../../../services/authen.service';
 import { AlertService } from './../../../shareds/services/alert.service';
-import { Itool } from './../../../shareds/interfaces/shared.interface';
+import { Itool, IToolSearchKey } from './../../../shareds/interfaces/shared.interface';
 import { Component, OnInit } from '@angular/core';
 import { ToolService } from '../../services/Tool.service';
 import { IinventoryComponent } from 'src/app/shareds/interfaces/shared.interface';
@@ -13,22 +13,34 @@ import { IinventoryComponent } from 'src/app/shareds/interfaces/shared.interface
 export class InventoryComponent implements IinventoryComponent {
 
   constructor(
-    private tool : ToolService,
-    private alert : AlertService,
+    private tool: ToolService,
+    private alert: AlertService,
     private authen: AuthenService
   ) {
-    this.intialLoadTools(); 
-   }
+    this.intialLoadTools();
+    this.searchType = this.searchTypeItems[0];
+  }
 
-  items: Itool[] =[];
+  items: any[] = [];
+  seachText: string = '';
+  searchType: IToolSearchKey;
+  searchTypeItems: IToolSearchKey[] = [
+    { key: 'batch', value: 'Find by Batch' },
+    { key: 'pn', value: 'Find by Part Number' },
+    { key: 'sn', value: 'Find by Serial Number' },
+    { key: 'tool_life_expiration', value: 'Find by Tool Exp' },
+  ];
 
   /**Load Tool Inventory */
 
-  private intialLoadTools(){
+  private intialLoadTools() {
     this.tool
-    .getTools(this.authen.getAuthenticated())
-    .then(res => this.items = res)
+      .getTools(this.authen.getAuthenticated())
+      
   }
 
+  onSearchItem() {
+    console.log(this.seachText, this.searchType)
+  }
 
 }
