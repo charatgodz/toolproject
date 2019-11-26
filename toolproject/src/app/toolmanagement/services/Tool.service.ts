@@ -17,7 +17,14 @@ export class ToolService {
 
   getTools(accessToken, options?: IToolSearch) {
     return (this.http.requestGet('api/tool', accessToken)).pipe(map(
-      (res : Itool[]) => {res.filter()}
+      (res: Itool[]) => {
+        if (options) {
+          return res.filter(res => res[options.searchType].indexOf(options.seachText) >= 0)
+        }
+
+        return res;
+
+      }
     ))
   }
 

@@ -1,6 +1,6 @@
 import { AuthenService } from './../../../services/authen.service';
 import { AlertService } from './../../../shareds/services/alert.service';
-import { Itool, IToolSearchKey } from './../../../shareds/interfaces/shared.interface';
+import { Itool, IToolSearchKey, IToolSearch } from './../../../shareds/interfaces/shared.interface';
 import { Component, OnInit } from '@angular/core';
 import { ToolService } from '../../services/Tool.service';
 import { IinventoryComponent } from 'src/app/shareds/interfaces/shared.interface';
@@ -33,14 +33,17 @@ export class InventoryComponent implements IinventoryComponent {
 
   /**Load Tool Inventory */
 
-  private intialLoadTools() {
+  private intialLoadTools(option?: IToolSearch) {
     this.tool
-      .getTools(this.authen.getAuthenticated())
-      
+      .getTools(this.authen.getAuthenticated(), option).subscribe(res => this.items = res)
+
   }
 
   onSearchItem() {
-    console.log(this.seachText, this.searchType)
+    this.intialLoadTools({
+      searchType: this.searchType.key,
+      seachText: this.seachText.toUpperCase()
+    });
   }
 
 }
