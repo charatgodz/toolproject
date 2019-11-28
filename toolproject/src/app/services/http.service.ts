@@ -18,7 +18,7 @@ export class HttpService {
   requestGet(url: string, accessToken?: String) {
     return this.http
       .get(`${this.address}${url}`, {headers: this.appendHeaders(accessToken)})
-      .pipe(catchError(err => this.handelError(err)));
+      .pipe(catchError(error =>{throw this.handelError(error)}))
   }
 
   requestPost(url: string, body: any, accessToken?: String) {
@@ -28,7 +28,7 @@ export class HttpService {
   }
 
   private handelError(errRespond: HttpErrorResponse): Observable<any> {
-    errRespond['Message'] = errRespond.message;
+    errRespond['Message'] = errRespond.error.message;
     throw errRespond;
   }
   private appendHeaders(accessToken) {

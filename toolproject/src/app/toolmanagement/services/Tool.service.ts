@@ -28,6 +28,10 @@ export class ToolService {
     ))
   }
 
+  checkTools(batch: string) {
+    return this.http.requestGet('api/tool/check?batch=' + batch)
+  }
+
   insertLoadHeader(model: IloanHeader, accessToken) {
     return this.http.requestPost('api/tool/loanheader', model, accessToken)
   }

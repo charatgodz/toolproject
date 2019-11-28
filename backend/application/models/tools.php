@@ -14,4 +14,9 @@ class Tools extends CI_Model{
         return $this->db->get($this->table)->result();
     }
 
+    public function find_by_batch($batch){
+        return $this->db->get_where($this->table, ['batch' => $batch])->result();
+
+    }
+
 }

@@ -53,6 +53,7 @@ $route['default_controller'] = 'welcome';
 $route['api/accout/login']['POST'] = 'account/login';
 $route['api/member/data']['GET'] = 'member/data';
 $route['api/tool']['GET'] = 'tool/get_tools';
+$route['api/tool/check']['GET'] = 'tool/checkTool';
 $route['api/tool/loanheader']['POST'] = 'loantool/create_loan_header';
 $route['api/employee']['POST'] = 'employee/get_employees';
 $route['api/workorder']['GET'] = 'workorder/get_workorder';

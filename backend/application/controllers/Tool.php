@@ -28,4 +28,14 @@ class Tool extends API_Controller
             ]);
         }
     }
+
+    public function checkTool()
+    {
+        $this->form_validation->set_data($_GET);
+        $this->form_validation->set_rules('batch', 'batch', 'required');
+
+        if ($this->form_validation->run() == FALSE)
+            return $this->json(['message' => $this->formError()], 400);
+        return $this->json($this->tools->find_by_batch($_GET['batch']));
+    }
 }

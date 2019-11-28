@@ -1,3 +1,4 @@
+import { resolve } from 'url';
 import { AuthenService } from './../../../services/authen.service';
 import { Iemployee, Iworkorder, IloanHeader } from './../../../shareds/interfaces/shared.interface';
 import { AlertService } from './../../../shareds/services/alert.service';
@@ -53,6 +54,11 @@ export class LoanComponent implements OnInit {
       this.getEmp(id)
     })
 
+   this.form_detail.get('batch').valueChanges.subscribe(
+    res => this.tool.checkTools(res).subscribe(res => {
+      console.log(res)
+    },err => this.alert.notify(err.error.message, 'danger'))
+   )
 
   }
 
