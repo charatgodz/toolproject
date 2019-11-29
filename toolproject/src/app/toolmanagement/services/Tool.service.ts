@@ -1,7 +1,6 @@
 import { map } from 'rxjs/operators';
-import { resolve } from 'url';
 import { HttpService } from './../../services/http.service';
-import { Itool, IinventoryComponent, IloanHeader, IloanDetail, ILoanTool, IToolSearch } from './../../shareds/interfaces/shared.interface';
+import { Itool, IloanHeader, IloanDetail, ILoanTool, IToolSearch } from './../../shareds/interfaces/shared.interface';
 import { Injectable } from '@angular/core';
 
 

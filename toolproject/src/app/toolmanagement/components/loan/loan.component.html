@@ -164,7 +164,7 @@
                                         <input type="text" class="form-control is-invalid" id="validationServerUsername"
                                             placeholder="Please input Here !" aria-describedby="inputGroupPrepend3" required
                                             formControlName="batch">
-                                        <div class="invalid-feedback">
+                                        <div class="invalid-feedback" *ngIf="form_detail.get('batch').errors?.batch">
                                            Scan or Enter Batch Number ID
                                         </div>
                                     </div>

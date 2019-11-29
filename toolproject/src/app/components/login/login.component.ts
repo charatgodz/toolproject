@@ -38,7 +38,7 @@ export class LoginComponent implements ILoginComponet {
         this.authen.setAuthenticated(res.accessToken);
         this.alert.notify('Login Success','success')
         this.router.navigate(['/', AppURL.Authen, tmURL.dashboard])
-      }).catch(err => this.alert.notify(err.message,'warning'));
+      }).catch(err => this.alert.notify(err.error.message,'warning'));
 
       
   }

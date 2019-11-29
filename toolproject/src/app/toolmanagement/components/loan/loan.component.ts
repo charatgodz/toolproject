@@ -1,11 +1,10 @@
-import { resolve } from 'url';
 import { AuthenService } from './../../../services/authen.service';
 import { Iemployee, Iworkorder, IloanHeader } from './../../../shareds/interfaces/shared.interface';
 import { AlertService } from './../../../shareds/services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ToolService } from '../../services/Tool.service';
-import { SharedValidators, checkEmployee } from 'src/app/shareds/Validators/shared.validators';
+import { SharedValidators, checkEmployee, checkBatch } from 'src/app/shareds/Validators/shared.validators';
 import { EmployeeService } from '../../services/employee.service';
 import { map } from 'rxjs/operators';
 import { WorkorderService } from '../../services/workorder.service';
@@ -54,12 +53,6 @@ export class LoanComponent implements OnInit {
       this.getEmp(id)
     })
 
-   this.form_detail.get('batch').valueChanges.subscribe(
-    res => this.tool.checkTools(res).subscribe(res => {
-      console.log(res)
-    },err => this.alert.notify(err.error.message, 'danger'))
-   )
-
   }
 
   private createForm() {
@@ -71,7 +64,7 @@ export class LoanComponent implements OnInit {
     });
     this.form_header.get('eng_name').disable();
     this.form_detail = this.fb.group({
-      batch: ['', Validators.required],
+      batch: ['', Validators.required, checkBatch(this.tool)],
       header_id: ['', Validators.required],
       qty_borrow: ['', Validators.required]
     })
@@ -82,7 +75,7 @@ export class LoanComponent implements OnInit {
   private onSubmitHeader() {
     this.isShow = true;
     this.set_modelHeader(this.form_header.value)
-    this.tool.insertLoadHeader(this.modelHeader, this.authen.getAuthenticated()).subscribe(res => {this.header_id = res.header_id; console.log(this.header_id)})
+    this.tool.insertLoadHeader(this.modelHeader, this.authen.getAuthenticated()).subscribe(res => { this.header_id = res.header_id; console.log(this.header_id) })
   }
 
   private onSubmitDetail() {

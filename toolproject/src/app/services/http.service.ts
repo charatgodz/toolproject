@@ -18,7 +18,7 @@ export class HttpService {
   requestGet(url: string, accessToken?: String) {
     return this.http
       .get(`${this.address}${url}`, {headers: this.appendHeaders(accessToken)})
-      .pipe(catchError(error =>{throw this.handelError(error)}))
+      .pipe(catchError(err => this.handelError(err)));
   }
 
   requestPost(url: string, body: any, accessToken?: String) {
