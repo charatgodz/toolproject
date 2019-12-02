@@ -82,7 +82,7 @@
                                                 aria-describedby="inputGroupPrepend3" [ngClass]="{
                                                     'is-valid': form_header.get('eng_id').touched && form_header.get('eng_id').valid,
                                                     'is-invalid': form_header.get('eng_id').touched && form_header.get('eng_id').invalid
-                                                }" [readonly]='isShow' >
+                                                }" [readonly]='isShow'>
                                             <div class="invalid-feedback">
                                                 <div *ngIf="eng_id_error.errors?.cannotContainSpace">
                                                     Employee ID Can not Contain Space.
@@ -105,7 +105,7 @@
                                             formControlName="eng_name" placeholder="First name" [ngClass]="{
                                                 'is-valid': form_header.get('eng_name').touched && form_header.get('eng_name').valid,
                                                 'is-invalid': form_header.get('eng_name').touched && form_header.get('eng_name').invalid
-                                            }"[readonly]='isShow'>
+                                            }" [readonly]='isShow'>
                                     </div>
 
                                 </div>
@@ -120,7 +120,7 @@
                                         'is-invalid': form_header.get('ac_reg').touched && form_header.get('ac_reg').invalid}" [readonly]='isShow'>
                                         <div class="invalid-feedback">
                                             <div *ngIf="form_header.get('ac_reg').errors?.required">
-                                                 Workorder or Aircraft is Required.
+                                                Workorder or Aircraft is Required.
                                             </div>
                                         </div>
                                         <datalist id="aircraftlist">
@@ -161,11 +161,19 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupPrepend3">Batch Number</span>
                                         </div>
-                                        <input type="text" class="form-control is-invalid" id="validationServerUsername"
-                                            placeholder="Please input Here !" aria-describedby="inputGroupPrepend3" required
-                                            formControlName="batch">
-                                        <div class="invalid-feedback" *ngIf="form_detail.get('batch').errors?.batch">
-                                           Scan or Enter Batch Number ID
+                                        <input type="text" class="form-control" id="validationServerUsername"
+                                            placeholder="Please input Here !" aria-describedby="inputGroupPrepend3"
+                                            formControlName="batch"
+                                            [ngClass]="{
+                                                'is-valid': form_detail.get('batch').touched &&form_detail.get('batch').valid,
+                                                'is-invalid': form_detail.get('batch').touched && form_detail.get('batch').invalid}">
+                                        <div class="invalid-feedback">
+                                            <div *ngIf="form_detail.get('batch').errors?.batch">
+                                                Scan or Enter Batch Number ID
+                                            </div>
+                                            <div *ngIf="form_detail.get('batch').errors?.required">
+                                                Batch is Requred
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

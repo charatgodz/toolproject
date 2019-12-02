@@ -65,8 +65,8 @@ export class LoanComponent implements OnInit {
     this.form_header.get('eng_name').disable();
     this.form_detail = this.fb.group({
       batch: ['', Validators.required, checkBatch(this.tool)],
-      header_id: ['', Validators.required],
-      qty_borrow: ['', Validators.required]
+      header_id: ['',],
+      qty_borrow: ['1',]
     })
 
 
@@ -75,11 +75,13 @@ export class LoanComponent implements OnInit {
   private onSubmitHeader() {
     this.isShow = true;
     this.set_modelHeader(this.form_header.value)
-    this.tool.insertLoadHeader(this.modelHeader, this.authen.getAuthenticated()).subscribe(res => { this.header_id = res.header_id; console.log(this.header_id) })
+    this.tool.insertLoadHeader(this.modelHeader, this.authen.getAuthenticated()).subscribe(res => this.header_id = res.header_id)
   }
 
   private onSubmitDetail() {
+    if (this.form_detail.invalid) return;
     this.form_detail.get('header_id').setValue(this.header_id);
+    this.form_detail.get('qty_borrow').setValue('1');
     console.log(this.form_detail.value);
     this.form_detail.reset();
   }
@@ -91,6 +93,10 @@ export class LoanComponent implements OnInit {
 
   get eng_id_error() {
     return this.form_header.get('eng_id')
+  }
+
+  get batch_error() {
+    return this.form_detail.get('batch')
   }
 
   get eng_name_error() {
